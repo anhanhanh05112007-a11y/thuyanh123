@@ -1,5 +1,5 @@
 ﻿
-    internal class exercisec_1
+    internal class Exercise
     {
         public static void Main_1(string[] args)
         {

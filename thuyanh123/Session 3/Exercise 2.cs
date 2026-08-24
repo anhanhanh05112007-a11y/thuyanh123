@@ -6,8 +6,9 @@ using System.Threading.Tasks;
 
 namespace thuyanh123.session_4
 {
-    internal class baitap4
+    internal class Exercise2
     {
+        enum CurrencyType { USD, EUR, JPY, GBP }
         static void Bai_1()
         {
             Console.WriteLine("Bài 1");
@@ -100,57 +101,57 @@ namespace thuyanh123.session_4
         }
         static void Bai_3()
         {
-            Console.Write("Nhap so tien VNĐ: ");
-            decimal tienVND = decimal.Parse(Console.ReadLine());
+        // nhập dữ liệu
+        Console.Write("Nhập số tiền VNĐ: ");
+            decimal soTienVND = decimal.Parse(Console.ReadLine());
 
-            Console.WriteLine("1 - USD");
-            Console.WriteLine("2 - EUR");
-            Console.WriteLine("3 - JPY");
-            Console.WriteLine("4 - GBP");
-
-            Console.Write("Chon ngoai te: ");
+            Console.WriteLine("Chọn ngoại tệ (1-USD, 2-EUR, 3-JPY, 4-GBP): ");
             int luaChon = int.Parse(Console.ReadLine());
 
-            CurrencyType loaiTien;
-            decimal tyGia = 0;
+            // Chuyển số người dùng chọn (1,2,3,4) thành giá trị enum tương ứng
+            CurrencyType loaiTien = (CurrencyType)(luaChon - 1); // vì enum bắt đầu từ 0
 
-            switch (luaChon)
+            // tỷ giá cố định
+            decimal tyGiaUSD = 25400m;
+            decimal tyGiaEUR = 27200m;
+            decimal tyGiaJPY = 165m;
+            decimal tyGiaGBP = 32100m;
+
+            // tính phí dịch vụ 0,55
+            decimal phiDichVu = soTienVND * 0.005m;
+            decimal soTienSauPhi = soTienVND - phiDichVu;
+
+            // Quy đổi ra tiền tệ tương ứng
+            decimal soTienNgoaiTe = 0;
+            string kyHieu = "";
+
+            // switch-case: chọn công thức tính theo loại tiền đã chọn
+            switch (loaiTien)
             {
-                case 1:
-                    loaiTien = CurrencyType.USD;
-                    tyGia = 25400;
+                case CurrencyType.USD:
+                    soTienNgoaiTe = soTienSauPhi / tyGiaUSD;
+                    kyHieu = "USD";
                     break;
-
-                case 2:
-                    loaiTien = CurrencyType.EUR;
-                    tyGia = 27200;
+                case CurrencyType.EUR:
+                    soTienNgoaiTe = soTienSauPhi / tyGiaEUR;
+                    kyHieu = "EUR";
                     break;
-
-                case 3:
-                    loaiTien = CurrencyType.JPY;
-                    tyGia = 165;
+                case CurrencyType.JPY:
+                    soTienNgoaiTe = soTienSauPhi / tyGiaJPY;
+                    kyHieu = "JPY";
                     break;
-
-                case 4:
-                    loaiTien = CurrencyType.GBP;
-                    tyGia = 32100;
+                case CurrencyType.GBP:
+                    soTienNgoaiTe = soTienSauPhi / tyGiaGBP;
+                    kyHieu = "GBP";
                     break;
-
-                default:
-                    Console.WriteLine("Lua chon khong hop le!");
-                    return;
             }
 
-            decimal phi = tienVND * 0.5m / 100;
-            decimal tienSauPhi = tienVND - phi;
-            decimal tienNgoaiTe = tienSauPhi / tyGia;
-
-            Console.WriteLine("\n--- KET QUA ---");
-            Console.WriteLine("Loai tien: " + loaiTien);
-            Console.WriteLine("Phi dich vu: " + phi.ToString("#,##0") + " VNĐ");
-            Console.WriteLine("Tien VND tinh doi: " + tienSauPhi.ToString("#,##0") + " VNĐ");
-            Console.WriteLine("So tien nhan duoc: " + tienNgoaiTe.ToString("F2") + " " + loaiTien);
+            // Kết quả
+            Console.WriteLine($"\nPhí dịch vụ (0.5%): {phiDichVu:N0} VNĐ");
+            Console.WriteLine($"Số tiền VNĐ tính đổi: {soTienSauPhi:N0} VNĐ");
+            Console.WriteLine($"Số tiền {kyHieu} nhận được: {soTienNgoaiTe:F2} {kyHieu}");
         }
+       
 
         public static void Main(string[] args)
         {
