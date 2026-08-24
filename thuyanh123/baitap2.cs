@@ -1,5 +1,4 @@
 ﻿
-
 namespace CSLT.session02
 {
     internal class exercisec_1
