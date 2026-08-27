@@ -151,6 +151,121 @@ namespace thuyanh123.session_4
             Console.WriteLine($"Số tiền VNĐ tính đổi: {soTienSauPhi:N0} VNĐ");
             Console.WriteLine($"Số tiền {kyHieu} nhận được: {soTienNgoaiTe:F2} {kyHieu}");
         }
+        static void Bai_4()
+        {
+            Console.Write("Nhap ngay sinh (dd/MM/yyyy): ");
+            string chuoiNgay = Console.ReadLine();
+
+            DateTime ngaySinh;
+
+            bool hopLe = DateTime.TryParseExact(
+                chuoiNgay,
+                "dd/MM/yyyy",
+                CultureInfo.InvariantCulture,
+                DateTimeStyles.None,
+                out ngaySinh);
+
+            if (!hopLe)
+            {
+                Console.WriteLine("Ngay sinh khong hop le!");
+                return;
+            }
+
+            DateTime homNay = DateTime.Now.Date;
+
+            int tuoi = homNay.Year - ngaySinh.Year;
+
+            if (homNay < ngaySinh.AddYears(tuoi))
+            {
+                tuoi--;
+            }
+
+            TimeSpan daSong = homNay - ngaySinh;
+
+            DateTime sinhNhat = new DateTime(
+                homNay.Year,
+                ngaySinh.Month,
+                ngaySinh.Day);
+
+            if (sinhNhat < homNay)
+            {
+                sinhNhat = sinhNhat.AddYears(1);
+            }
+
+            TimeSpan conLai = sinhNhat - homNay;
+
+            Console.WriteLine("\nTuoi hien tai: " + tuoi + " tuoi");
+            Console.WriteLine("Da song: " + (int)daSong.TotalDays + " ngay");
+            Console.WriteLine("Sinh nhat tiep theo con: "
+                + (int)conLai.TotalDays + " ngay");
+        }
+        static void Bai_5()
+        {
+            Console.Write("Diem Lap trinh C#: ");
+            double diem1 = double.Parse(Console.ReadLine());
+
+            Console.Write("So tin chi: ");
+            int tc1 = int.Parse(Console.ReadLine());
+
+            Console.Write("Diem Toan roi rac: ");
+            double diem2 = double.Parse(Console.ReadLine());
+
+            Console.Write("So tin chi: ");
+            int tc2 = int.Parse(Console.ReadLine());
+
+            Console.Write("Diem Tieng Anh: ");
+            double diem3 = double.Parse(Console.ReadLine());
+
+            Console.Write("So tin chi: ");
+            int tc3 = int.Parse(Console.ReadLine());
+
+            double tongTinChi = tc1 + tc2 + tc3;
+
+            double diemTB = (diem1 * tc1
+                           + diem2 * tc2
+                           + diem3 * tc3) / tongTinChi;
+
+            char diemChu;
+            double gpa;
+            string xepLoai;
+
+            if (diemTB >= 8.5)
+            {
+                diemChu = 'A';
+                gpa = 4.0;
+                xepLoai = "Xuat sac / Gioi";
+            }
+            else if (diemTB >= 7.0)
+            {
+                diemChu = 'B';
+                gpa = 3.0;
+                xepLoai = "Kha";
+            }
+            else if (diemTB >= 5.5)
+            {
+                diemChu = 'C';
+                gpa = 2.0;
+                xepLoai = "Trung binh";
+            }
+            else if (diemTB >= 4.0)
+            {
+                diemChu = 'D';
+                gpa = 1.0;
+                xepLoai = "Yeu";
+            }
+            else
+            {
+                diemChu = 'F';
+                gpa = 0.0;
+                xepLoai = "Kem (Truot)";
+            }
+
+            Console.WriteLine("\n--- KET QUA ---");
+            Console.WriteLine("Diem TB thang 10: " + diemTB.ToString("F2"));
+            Console.WriteLine("Diem chu: " + diemChu);
+            Console.WriteLine("GPA thang 4: " + gpa.ToString("F1"));
+            Console.WriteLine("Xep loai: " + xepLoai);
+        }
        
 
         public static void Main(string[] args)
@@ -159,6 +274,8 @@ namespace thuyanh123.session_4
             Bai_1();
             Bai_2();
             Bai_3();
+            Bai_4();
+            Bai_5();
             Console.ReadKey();
 
         }
