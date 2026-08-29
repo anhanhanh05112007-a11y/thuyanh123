@@ -153,51 +153,63 @@ namespace thuyanh123.session_4
         }
         static void Bai_4()
         {
+            // Bước 1: Nhap ngay sinh dang chuoi "dd/MM/yyyy"
             Console.Write("Nhap ngay sinh (dd/MM/yyyy): ");
-            string chuoiNgay = Console.ReadLine();
+            string input = Console.ReadLine();
 
-            DateTime ngaySinh;
+            // Bước 2: Tach chuoi theo dau "/" de lay ra ngay, thang, nam
+            // Vi du: "15/09/2003" => mang parts = ["15", "09", "2003"]
+            string[] parts = input.Split('/');
 
-            bool hopLe = DateTime.TryParseExact(
-                chuoiNgay,
-                "dd/MM/yyyy",
-                CultureInfo.InvariantCulture,
-                DateTimeStyles.None,
-                out ngaySinh);
-
-            if (!hopLe)
+            // Bước 3: Kiem tra co du 3 phan khong, neu thieu la sai dinh dang
+            if (parts.Length != 3)
             {
-                Console.WriteLine("Ngay sinh khong hop le!");
+                Console.WriteLine("Ngay sinh khong dung dinh dang dd/MM/yyyy!");
                 return;
             }
 
-            DateTime homNay = DateTime.Now.Date;
+            // Bước 4: Chuyen tung phan chuoi thanh so nguyen
+            int ngay = int.Parse(parts[0]);
+            int thang = int.Parse(parts[1]);
+            int nam = int.Parse(parts[2]);
 
-            int tuoi = homNay.Year - ngaySinh.Year;
+            // Bước 5: Tao doi tuong DateTime tu 3 so ngay, thang, nam
+            DateTime birthDate = new DateTime(nam, thang, ngay);
 
-            if (homNay < ngaySinh.AddYears(tuoi))
+            // Bước 6: Lay ngay hien tai cua he thong (chi lay phan ngay, bo gio)
+            DateTime today = DateTime.Now.Date;
+
+            // Bước 7: Tinh tuoi hien tai theo nam
+            int age = today.Year - birthDate.Year;
+            // Neu trong nam nay chua toi ngay sinh nhat thi tru di 1 tuoi
+            if (today.Month < birthDate.Month ||
+               (today.Month == birthDate.Month && today.Day < birthDate.Day))
             {
-                tuoi--;
+                age--;
             }
 
-            TimeSpan daSong = homNay - ngaySinh;
+            // Bước 8: Tinh tong so ngay da song = lay ngay hien tai tru ngay sinh
+            TimeSpan soNgaySong = today - birthDate;
 
-            DateTime sinhNhat = new DateTime(
-                homNay.Year,
-                ngaySinh.Month,
-                ngaySinh.Day);
+            // Bước 9: Tim ngay sinh nhat sap toi
+            // Lay ngay/thang sinh nhat nhung gan vao nam hien tai
+            DateTime sinhNhatNamNay = new DateTime(today.Year, birthDate.Month, birthDate.Day);
 
-            if (sinhNhat < homNay)
+            // Neu sinh nhat nam nay da qua roi thi tinh cho nam sau
+            if (sinhNhatNamNay < today)
             {
-                sinhNhat = sinhNhat.AddYears(1);
+                sinhNhatNamNay = sinhNhatNamNay.AddYears(1);
             }
 
-            TimeSpan conLai = sinhNhat - homNay;
+            // Bước 10: Tinh so ngay con lai den sinh nhat ke tiep
+            int soNgayConLai = (sinhNhatNamNay - today).Days;
 
-            Console.WriteLine("\nTuoi hien tai: " + tuoi + " tuoi");
-            Console.WriteLine("Da song: " + (int)daSong.TotalDays + " ngay");
-            Console.WriteLine("Sinh nhat tiep theo con: "
-                + (int)conLai.TotalDays + " ngay");
+            // Bước 11: In ket qua ra man hinh
+            Console.WriteLine();
+            Console.WriteLine("--- OUTPUT ---");
+            Console.WriteLine("Tuoi hien tai: " + age + " tuoi");
+            Console.WriteLine("Ban da song tong cong: " + soNgaySong.TotalDays + " ngay");
+            Console.WriteLine("Sinh nhat tiep theo con: " + soNgayConLai + " ngay nua");
         }
         static void Bai_5()
         {
