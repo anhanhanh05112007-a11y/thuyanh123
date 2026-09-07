@@ -280,7 +280,7 @@ namespace thuyanh123.session_4
         }
        
 
-        public static void Main(string[] args)
+        public static void Main_5(string[] args)
         {
             Console.OutputEncoding = Encoding.UTF8;
             Bai_1();
