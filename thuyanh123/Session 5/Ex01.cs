@@ -90,7 +90,7 @@ namespace thuyanh123.Session_5
 
 
 
-        public static void Main(string[] args)
+        public static void Main_1(string[] args)
         {
             Console.OutputEncoding = Encoding.UTF8;
             Bangcuuchuong();
