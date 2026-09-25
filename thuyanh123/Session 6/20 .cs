@@ -8,7 +8,7 @@ namespace thuyanh123.Session_6
 {
     internal class _20_EXs
     {
-        static void Main(string[] args)
+        static void Main_6(string[] args)
         {
             Console.OutputEncoding = Encoding.UTF8;
             Bai_2();
