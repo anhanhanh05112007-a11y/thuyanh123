@@ -109,7 +109,7 @@ namespace thuyanh123.Session_8
             Console.WriteLine($"tomove.txt ton tai: {File.Exists(src)}, moved.txt ton tai: {File.Exists(dst)}");
         }
 
-        // File mẫu dùng cho các bài 9 - 15
+       
         static string SampleFile()
         {
             string path = P("sample.txt");
