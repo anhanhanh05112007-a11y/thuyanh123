@@ -109,7 +109,6 @@ namespace thuyanh123.Session_8
             Console.WriteLine($"tomove.txt ton tai: {File.Exists(src)}, moved.txt ton tai: {File.Exists(dst)}");
         }
 
-        
         static string SampleFile()
         {
             string path = P("sample.txt");
